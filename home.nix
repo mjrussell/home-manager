@@ -41,6 +41,7 @@ in
     python3
     rsync
     shellcheck
+    zsh-completions
   ];
 
   # Zsh with oh-my-zsh and plugins
@@ -62,13 +63,12 @@ in
       plugins = [ "git" "sudo" ];
     };
     plugins = [
-      { name = "zsh-nix-shell"; src = pkgs.zsh-nix-shell; file = "nix-shell.plugin.zsh"; }
-      { name = "zsh-autopair"; src = pkgs.zsh-autopair; file = "zsh-autopair.plugin.zsh"; }
-      { name = "zsh-bd"; src = pkgs.zsh-bd; file = "zsh-bd.plugin.zsh"; }
-      { name = "zsh-completions"; src = pkgs.zsh-completions; file = "zsh-completions.plugin.zsh"; }
-      { name = "zsh-autosuggestions"; src = pkgs.zsh-autosuggestions; file = "zsh-autosuggestions.plugin.zsh"; }
-      { name = "zsh-fast-syntax-highlighting"; src = pkgs.zsh-fast-syntax-highlighting; file = "fast-syntax-highlighting.plugin.zsh"; }
-      { name = "zsh-history-substring-search"; src = pkgs.zsh-history-substring-search; file = "zsh-history-substring-search.plugin.zsh"; }
+      { name = "zsh-nix-shell"; src = pkgs.zsh-nix-shell; file = "share/zsh/plugins/zsh-nix-shell/nix-shell.plugin.zsh"; }
+      { name = "zsh-autopair"; src = pkgs.zsh-autopair; file = "share/zsh/zsh-autopair/autopair.zsh"; }
+      { name = "zsh-bd"; src = pkgs.zsh-bd; file = "share/plugins/zsh-bd/bd.zsh"; }
+      { name = "zsh-autosuggestions"; src = pkgs.zsh-autosuggestions; file = "share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"; }
+      { name = "zsh-fast-syntax-highlighting"; src = pkgs.zsh-fast-syntax-highlighting; file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"; }
+      { name = "zsh-history-substring-search"; src = pkgs.zsh-history-substring-search; file = "share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"; }
     ];
     shellAliases = {
       vimdiff = "nvim -d";
