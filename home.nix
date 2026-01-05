@@ -204,6 +204,8 @@ in
       commit.verbose = true;
       http.sslVerify = true;
       core.editor = "vim";
+      core.pager = "${pkgs.delta}/bin/delta";
+      interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
       alias = {
         fix = "commit --amend --no-edit";
         oops = "reset HEAD~1";
@@ -237,11 +239,6 @@ in
       navigate = true;
       light = false;
     };
-  };
-
-  programs.git.settings = {
-    core.pager = "${pkgs.delta}/bin/delta";
-    interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
   };
 
   # Symlink 1Password agent socket on macOS
