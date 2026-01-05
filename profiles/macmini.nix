@@ -16,4 +16,8 @@
   home.sessionVariables = {
     CLAWDBOT_NIX_MODE = "1";
   };
+
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 }
