@@ -119,6 +119,9 @@ in
       fi
 
       ulimit -n 4096
+
+      # Disable fast-syntax-highlighting's make target scanner
+      FAST_HIGHLIGHT[chroma-make]=
     '';
   };
 
