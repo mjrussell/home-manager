@@ -16,7 +16,6 @@ in
     VISUAL = "nvim";
     CLICOLOR = 1;
     LSCOLORS = "ExFxBxDxCxegedabagacad";
-    SSH_AUTH_SOCK = "${config.home.homeDirectory}/.1password/agent.sock";
   };
 
   home.packages = with pkgs; [
@@ -213,9 +212,9 @@ in
         fix = "commit --amend --no-edit";
         oops = "reset HEAD~1";
       };
-      # 1Password git signing
+      # SSH signing (using local key)
       gpg.format = "ssh";
-      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg.ssh.program = "/usr/bin/ssh-keygen";
       commit.gpgsign = true;
     };
     includes = [
@@ -223,14 +222,14 @@ in
         condition = "gitdir:~/code/personal/";
         contents = {
           user.email = "matthewjosephrussell@gmail.com";
-          user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFsuQpHchfqyjLQoKLQt6KLtvGeGbJK6krwUxVLjbNzd";
+          user.signingkey = "~/.ssh/personal";
         };
       }
       {
         condition = "gitdir:~/code/mercury/";
         contents = {
           user.email = "mattrussell@mercury.com";
-          user.signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFwusIGOug/7M1ybmoueCTJyGT0GSzpUUtSZdlzm0YJR";
+          user.signingkey = "~/.ssh/id_ed25519";
         };
       }
     ];
@@ -244,18 +243,10 @@ in
     };
   };
 
-  # Symlink 1Password agent socket on macOS
-  home.file.".1password/agent.sock".source =
-    config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-
   programs.ssh = {
     enable = true;
-    enableDefaultConfig = false;
     matchBlocks."*" = {
-      extraOptions = {
-        IdentityAgent = "${config.home.homeDirectory}/.1password/agent.sock";
-      };
+      identityFile = "~/.ssh/id_ed25519";
     };
   };
 }
